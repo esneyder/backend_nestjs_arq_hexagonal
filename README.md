@@ -44,7 +44,15 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Running localhost url
+```bash
+# url access
+http://localhost:3000/docs#
 
+ENV
+SECTRET=''
+SENDGRID_API_KEY=''
+```
 ## Test
 
 ```bash
