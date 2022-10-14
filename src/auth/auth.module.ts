@@ -16,7 +16,7 @@ import { IUserRepository } from './domain/outboudPorts/IUserRepository';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        secretOrPrivateKey: 'zebrands_backend_seleccionado',
+        secretOrPrivateKey: configService.get<string>('SENDGRID_API_KEY'),
       }),
       inject: [ConfigService],
     }),
@@ -35,5 +35,6 @@ import { IUserRepository } from './domain/outboudPorts/IUserRepository';
     JwtStrategy,
     LocalStrategy,
   ],
+  exports: [UserService],
 })
 export class AuthModule {}

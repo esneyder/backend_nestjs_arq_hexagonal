@@ -1,3 +1,4 @@
+import { UserService } from 'src/auth/domain/inboudPorts/UserService';
 import { IProductService } from './IProductService';
 import {
   ConflictException,
@@ -17,7 +18,7 @@ export class ProductService implements IProductService {
   constructor(
     @Inject(IProductRepository)
     private readonly productRepository: IProductRepository,
-    private sendgridService: SengridCustom,
+    private readonly sendgridService: SengridCustom,
   ) {}
   delete(id: string): string {
     const existProduct = this.productRepository.findById(id);

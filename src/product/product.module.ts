@@ -11,6 +11,7 @@ import { IProductRepository } from './domain/outboundPorts/IProductRepository';
   controllers: [ProductController],
   providers: [
     SengridCustom,
+
     ProductService,
     {
       provide: IProductRepository,
