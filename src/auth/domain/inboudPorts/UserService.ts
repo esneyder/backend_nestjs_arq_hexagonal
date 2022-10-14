@@ -6,7 +6,6 @@ import { User, UserCredentials } from '../model/User';
 import { Username } from '../value-objects/username';
 import { UserPassword } from '../value-objects/userpassword';
 import { DomainError } from '../domain-error';
-import { Role } from 'src/auth/adapters/model/role.enum';
 
 @Injectable()
 export class UserService implements IUserService {
@@ -39,6 +38,7 @@ export class UserService implements IUserService {
       dataUser.id,
       _username,
       _password,
+      dataUser.email,
       dataUser.firstname,
       dataUser.lastname,
       dataUser.roles,

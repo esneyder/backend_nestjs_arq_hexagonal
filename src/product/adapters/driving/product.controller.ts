@@ -11,6 +11,10 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiParam } from '@nestjs/swagger';
+import { HasRoles } from 'src/auth/adapters/driving/decorators/has-roles.decorator';
+import { RolesGuard } from 'src/auth/adapters/driving/passport/roles.guard';
+import { Role } from 'src/auth/adapters/model/role.enum';
+
 import { ProductService } from 'src/product/domain/inboudPorts/ProductService';
 import { Product } from 'src/product/domain/model/Product';
 import ProductCommand from '../model/ProductCommand';
@@ -41,7 +45,8 @@ export class ProductController {
     description: ' id producto a actualizar',
     type: String,
   })
-  @UseGuards(AuthGuard('jwt'))
+  @HasRoles(Role.User, Role.Admin)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Put(':id/update')
   updateProduct(@Param('id') id, @Body() data: ProductUpdateCommand): Product {
     const product = this.productService.updateProduct(

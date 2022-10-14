@@ -9,6 +9,7 @@ export class User {
   readonly username: Username;
   readonly password: UserPassword;
   readonly firstname: string;
+  readonly email: string;
   readonly lastname: string;
   readonly roles: Role[];
 
@@ -16,6 +17,7 @@ export class User {
     id: string,
     username: Username,
     password: UserPassword,
+    email: string,
     firstname: string,
     lastname: string,
     roles: Role[],
@@ -23,6 +25,7 @@ export class User {
     this.id = id;
     this.username = username;
     this.password = password;
+    this.email = email;
     this.firstname = firstname;
     this.lastname = lastname;
     this.roles = roles;
@@ -36,6 +39,7 @@ export class User {
     return {
       id: this.id,
       username: this.username.value,
+      email: this.email,
       firstname: this.firstname,
       lastname: this.lastname,
       roles: this.roles,
@@ -58,6 +62,7 @@ export class User {
       patch.id || this.id,
       patch.username || this.username,
       patch.password || this.password,
+      patch.email || this.email,
       patch.firstname || this.firstname,
       patch.lastname || this.lastname,
       patch.roles || this.roles,
@@ -69,6 +74,7 @@ export class User {
       user.id || uuid(),
       new Username(user.username),
       new UserPassword(user.password),
+      user.email,
       user.firstname,
       user.lastname,
       user.roles,

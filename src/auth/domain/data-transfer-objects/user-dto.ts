@@ -15,6 +15,8 @@ export class UserDto {
   @IsString()
   readonly username: string;
   @IsString()
+  readonly email: string;
+  @IsString()
   readonly password: string;
   @IsString()
   readonly firstname: string;
