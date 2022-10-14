@@ -25,7 +25,8 @@ export class ProductController {
   private readonly logger = new Logger(ProductController.name);
   constructor(private productService: ProductService) {}
 
-  // @UseGuards(AuthGuard('jwt'))
+  @HasRoles(Role.User, Role.Admin)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Post('create')
   create(@Body() data: ProductCommand): Product {
     const product = this.productService.create(
@@ -67,6 +68,8 @@ export class ProductController {
     description: ' id producto a eliminar',
     type: String,
   })
+  @HasRoles(Role.Admin)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Delete(':id/delete')
   delete(@Param('id') id): any {
     return this.productService.delete(id);
