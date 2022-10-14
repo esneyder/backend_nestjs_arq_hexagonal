@@ -1,3 +1,4 @@
+import { Role } from 'src/auth/adapters/model/role.enum';
 import { v4 as uuid } from 'uuid';
 import { UserDto } from '../data-transfer-objects/user-dto';
 import { Username } from '../value-objects/username';
@@ -9,6 +10,7 @@ export class User {
   readonly password: UserPassword;
   readonly firstname: string;
   readonly lastname: string;
+  readonly roles: Role[];
 
   constructor(
     id: string,
@@ -16,12 +18,14 @@ export class User {
     password: UserPassword,
     firstname: string,
     lastname: string,
+    roles: Role[],
   ) {
     this.id = id;
     this.username = username;
     this.password = password;
     this.firstname = firstname;
     this.lastname = lastname;
+    this.roles = roles;
   }
 
   getFullName(): string {
@@ -34,6 +38,7 @@ export class User {
       username: this.username.value,
       firstname: this.firstname,
       lastname: this.lastname,
+      roles: this.roles,
     };
   }
 
@@ -44,6 +49,7 @@ export class User {
       password: this.password.value,
       firstname: this.firstname,
       lastname: this.lastname,
+      roles: this.roles,
     } as UserDto;
   }
 
@@ -54,6 +60,7 @@ export class User {
       patch.password || this.password,
       patch.firstname || this.firstname,
       patch.lastname || this.lastname,
+      patch.roles || this.roles,
     );
   }
 
@@ -64,6 +71,7 @@ export class User {
       new UserPassword(user.password),
       user.firstname,
       user.lastname,
+      user.roles,
     );
   }
 }

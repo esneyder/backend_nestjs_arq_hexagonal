@@ -1,4 +1,12 @@
-import { IsString, IsUUID, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsUUID,
+  IsOptional,
+  IsArray,
+  ValidateNested,
+  IsEnum,
+} from 'class-validator';
+import { Role } from 'src/auth/adapters/model/role.enum';
 
 export class UserDto {
   @IsOptional()
@@ -12,6 +20,9 @@ export class UserDto {
   readonly firstname: string;
   @IsString()
   readonly lastname: string;
+  @IsArray()
+  @IsEnum(Role, { each: true })
+  readonly roles: Role[];
 }
 
 export class ChangeUserPasswordDto {

@@ -1,11 +1,12 @@
 import { IUserRepository } from './../outboudPorts/IUserRepository';
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { IUserService } from './IUserService';
 import { JwtService } from '@nestjs/jwt';
 import { User, UserCredentials } from '../model/User';
 import { Username } from '../value-objects/username';
 import { UserPassword } from '../value-objects/userpassword';
 import { DomainError } from '../domain-error';
+import { Role } from 'src/auth/adapters/model/role.enum';
 
 @Injectable()
 export class UserService implements IUserService {
@@ -30,7 +31,18 @@ export class UserService implements IUserService {
     return this.userRepository.getUserByUsername(new Username(username));
   }
   validateUser(_username: Username, _password: UserPassword): any {
-    const user = new User('', _username, _password, '', '');
+    const dataUser = this.userRepository.getUserByUsername(_username);
+    if (!dataUser) {
+      throw new ConflictException();
+    }
+    const user = new User(
+      dataUser.id,
+      _username,
+      _password,
+      dataUser.firstname,
+      dataUser.lastname,
+      dataUser.roles,
+    );
     const payload = user.infoWithoutPassword();
     const token = this.jwtService.sign(payload);
     return {

@@ -13,7 +13,7 @@ export class FileUserRepository implements IUserRepository {
   private filepath: string;
 
   constructor() {
-    this.filepath = join(homedir(), '.zbrands_storage.json');
+    this.filepath = join(homedir(), '.app_storage.json');
     try {
       this.data = JSON.parse(readFileSync(this.filepath).toString()).map(
         User.create,
